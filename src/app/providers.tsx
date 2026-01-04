@@ -3,6 +3,8 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from '@/lib/queryClient'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Provider } from 'react-redux'
+import { store } from '@/stores'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -11,7 +13,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       {process.env.NODE_ENV === 'development' && (
         <ReactQueryDevtools initialIsOpen={false} /> 
       )}
-      {children}
+      <Provider store={store}> {/* Redux Provider */}
+        {children}
+      </Provider>
     </QueryClientProvider>
   )
 }

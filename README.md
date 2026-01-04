@@ -29,6 +29,10 @@
   - 환경 변수 기반 API 엔드포인트 관리
   - Vercel 기반 자동 배포 파이프라인 구성
 
+- **쓰로틀, 디바운스 최적화, 옵티미스틱 업데이트 적용**
+  - 잦은 사용자 인터랙션에서 불필요한 API 호출을 방지하기 위해 Throttle, Debounce를 적용
+  - 서버 응답을 기다리지 않고 UI를 즉시 업데이트하는 Optimistic Update를 통해 사용자 경험을 개선
+
 ---
 
 ## 주요 기술 적용 및 개선내용
@@ -43,4 +47,13 @@
   - `env.ts`에서 환경변수를 관리하여 접근을 일관되게 관리
 
 - **React Query를 통한 서버 상태관리**
+
   - TanStack Query devtools : 개발 환경에서만 사용하도록 설정
+
+- **Redux Toolkit을 통한 클라이언트 상태관리**
+
+  - 전역에서 공유되는 UI 상태 및 인증 상태 관리를 위해 Redux Toolkit을 사용
+  - `types` 폴더에 도메인 및 공통 타입 정의
+  - `stores` 폴더에 각 상태 단위별 Slice 정의
+  - `stores/index.ts`에서 Slice 리듀서들을 결합하여 store 생성
+  - `providers.tsx`에서 Provider를 통해 애플리케이션에 store 주입
