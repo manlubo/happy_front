@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import localFont from "next/font/local";
 import { Providers } from "./providers";
+import { pretendard } from "@/fonts/font";
 
 
 export const metadata: Metadata = {
@@ -15,18 +15,6 @@ export const metadata: Metadata = {
     icon: "/favicon.ico", // public 폴더에 있는 favicon.ico 파일
   },
 };
-
-const pretendard = localFont({
-  src: [
-    {
-      path: "../fonts/PretendardVariable.woff2",
-      weight: "45 920",
-      style: "normal",
-    },
-  ],
-  variable: "--font-pretendard",
-  display: "swap",
-});
 
 
 export default function RootLayout({
