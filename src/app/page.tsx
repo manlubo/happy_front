@@ -5,21 +5,47 @@ import { useSelector, useDispatch } from "react-redux"
 import { AppDispatch, RootState } from "@/stores"
 import { login, logout, updateUser } from "@/stores/authSlice";
 import { LoginRequest, UserRole, UserStatus } from "@/types/auth";
-import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginRequestSchema } from "@/features/auth/schema";
+import { useMutation } from "@tanstack/react-query";
+import { signIn } from "@/features/auth/api";
 
 
 export default function Home() {
   const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch<AppDispatch>();
-  
-  const [loginForm, setLoginForm] = useState<LoginRequest>({
-    username: '',
-    password: '',
-    rememberMe: false,
+
+  const loginMutation = useMutation({
+    mutationFn: signIn,
+    onSuccess: (resp) => {
+      dispatch(login(resp.data));
+    },
+    onError: (error) => {
+      console.log(error);
+    },
   })
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginRequest>({
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(loginRequestSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+      rememberMe: false,
+    },
+  })
+  
+
+  const handleLogin: SubmitHandler<LoginRequest> = (data) => {
+    console.log(data);
+
+    loginMutation.mutate(data);
     
   }
 
@@ -34,14 +60,16 @@ export default function Home() {
         <div>user_roles : {user?.roles}</div>
         <div>user_profile : {user?.profile}</div>
         <div>user_status : {user?.status}</div>
-        <button onClick={() => dispatch(login({ id: 1, name: "유저", roles: [UserRole.USER], profile: "user-avatar.png", status: UserStatus.ACTIVE }))}>Login</button>
-        <br/>
-        <button onClick={() => dispatch(logout())}>Logout</button>
-        <br/>
-        <button onClick={() => dispatch(updateUser({ name: "관리자", roles: [UserRole.USER, UserRole.ADMIN], profile: "admin-avatar.png" }))}>Update User</button>
-        <form onSubmit={handleLogin}>
-          <input type="text" />
-          <input type="text" />
+        <form onSubmit={handleSubmit(handleLogin)}>
+          <input type="text" {...register("username")}/>
+          <span className="text-red-500">
+            {errors.username?.message}
+          </span>
+          <input type="text" {...register("password")}/>
+          <span className="text-red-500">
+            {errors.password?.message}
+          </span>
+          <input type="checkbox" {...register("rememberMe")}/>
           <button type="submit">Login</button>
         </form>
       </main>
