@@ -3,8 +3,8 @@
 import { API_BASE_URL } from "@/lib/env"
 import { useSelector, useDispatch } from "react-redux"
 import { AppDispatch, RootState } from "@/stores"
-import { login, logout, updateUser } from "@/stores/authSlice";
-import { LoginRequest, UserRole, UserStatus } from "@/types/auth";
+import { login } from "@/stores/authSlice";
+import { LoginRequest } from "@/types/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginRequestSchema } from "@/features/auth/schema";

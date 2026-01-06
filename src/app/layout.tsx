@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { Providers } from "./providers";
 import { pretendard } from "@/fonts/font";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import Main from "@/components/layout/Main";
 
 
 export const metadata: Metadata = {
@@ -24,8 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={pretendard.variable}>
-      <body>
-        <Providers>{children}</Providers>
+      <body className="flex flex-col min-h-screen">
+        <Providers>
+          <Header />
+          <Main>
+            {children}
+          </Main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
