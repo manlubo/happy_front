@@ -44,16 +44,33 @@
 - **환경변수 관리**
 
   - 환경별 `.env` 설정 분리를 통해 개발/운영 환경 충돌 방지
-  - `env.ts`에서 환경변수를 관리하여 접근을 일관되게 관리
+  - `env.ts`를 통해 환경변수 접근을 중앙화하여, 코드 전반에서 일관된 방식으로 환경변수를 사용하도록 구성
+
+- **타입 관리**
+
+  - `types` 폴더
+
+    - 서버 API 요청/응답과 1:1로 매핑되는 **API 계약 타입** 정의
+    - 백엔드 스펙 변경 시 영향을 받는 타입만 관리
+
+  - `features` 폴더
+    - 프론트엔드 도메인 기준의 **UI / 상태 / 비즈니스 타입** 정의
 
 - **React Query를 통한 서버 상태관리**
 
-  - TanStack Query devtools : 개발 환경에서만 사용하도록 설정
+  - 서버 데이터 조회 및 캐싱을 위해 TanStack Query 사용
+  - 서버 상태와 클라이언트 상태를 명확히 분리하여 관리함으로써 책임을 명확히 구분
+  - `providers.tsx`에서 TanStack Query Provider를 통해 애플리케이션 전역에 Query Client 주입
+  - TanStack Query Devtools는 개발 환경에서만 활성화하여 운영 환경에 영향이 없도록 설정
 
 - **Redux Toolkit을 통한 클라이언트 상태관리**
 
   - 전역에서 공유되는 UI 상태 및 인증 상태 관리를 위해 Redux Toolkit을 사용
-  - `types` 폴더에 도메인 및 공통 타입 정의
   - `stores` 폴더에 각 상태 단위별 Slice 정의
   - `stores/index.ts`에서 Slice 리듀서들을 결합하여 store 생성
-  - `providers.tsx`에서 Provider를 통해 애플리케이션에 store 주입
+  - `providers.tsx`에서 Redux Provider를 통해 애플리케이션 전역에 store 주입
+
+- **Axios를 통한 HTTP 통신 레이어 구성**
+  - Axios 인스턴스를 통해 HTTP 통신 로직을 분리하고 공통 설정을 중앙에서 관리
+  - 인증이 필요한 요청과 공개 API 요청을 분리하여 보안 및 책임을 명확히 함
+  - React Query의 `queryFn`, `mutationFn` 내부에서 Axios 인스턴스를 사용해 서버 상태 관리와 HTTP 통신 레이어를 분리
