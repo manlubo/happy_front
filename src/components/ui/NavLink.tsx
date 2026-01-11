@@ -7,6 +7,6 @@ type NavLinkProps = {
 
 export default function NavLink({href, children}: NavLinkProps) {
     return (
-      <Link className="text-base font-semibold p-4 text-gray-400 hover:text-gray-600 transition" href={href}>{children}</Link>
+      <Link className="text-base font-semibold p-4 text-gray-400 hover:text-blue-500 transition" href={href}>{children}</Link>
     );
 }

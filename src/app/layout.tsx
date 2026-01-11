@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { Providers } from "./providers";
 import { pretendard } from "@/fonts/font";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import Main from "@/components/layout/Main";
+import { Providers } from "./providers";
+import GlobalModal from "@/components/ui/GlobalModal";
 
 
 export const metadata: Metadata = {
@@ -29,11 +27,8 @@ export default function RootLayout({
     <html lang="ko" className={pretendard.variable}>
       <body className="flex flex-col min-h-screen overflow-x-hidden">
         <Providers>
-          <Header />
-          <Main>
-            {children}
-          </Main>
-          <Footer />
+          <GlobalModal />
+          {children}
         </Providers>
       </body>
     </html>

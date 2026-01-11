@@ -20,6 +20,7 @@ export default function Logo({ size = "md" }: LogoProps) {
       alt="Logo"
       width={width}
       height={height}
+      loading="eager"
     />
   );
 }
