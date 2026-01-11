@@ -6,6 +6,8 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/stores"
 import Block from "@/components/ui/Block";
 import UserBlock from "@/components/ui/UserBlock";
+import { CategoryBlock } from "./CategoryBlock";
+import ExpireDonateBlock from "./ExpireDonateBlock";
 
 export default function MainPageView() {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -14,6 +16,8 @@ export default function MainPageView() {
     <div className="flex gap-12">
       <div className="flex-8 flex flex-col gap-6">
         <MainBanner/>
+        <CategoryBlock/>
+        <ExpireDonateBlock/>
       </div>
       <div className="hidden lg:flex flex-4 flex-col gap-6">
         <UserBlock/>

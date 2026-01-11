@@ -77,7 +77,11 @@
   - React Query의 `queryFn`, `mutationFn` 내부에서 Axios 인스턴스를 사용해 서버 상태 관리와 HTTP 통신 레이어를 분리
 
 - **react-hook-form & Zod를 통한 입력 데이터 검증**
+
   - react-hook-form을 사용해 폼 상태를 효율적으로 관리
   - Zod 스키마 기반 입력 데이터 검증으로 타입 안정성 확보
   - 클라이언트 단에서 잘못된 입력을 사전에 차단하여 불필요한 서버 요청 방지
   - 검증 실패 시 필드별 에러 메시지를 UI에 노출하여 사용자 경험 개선
+
+- **아이콘 관리**
+  - components/common/Icons.tsx에서 아이콘을 중앙화하여 관리

@@ -1,16 +1,16 @@
 import Link from "next/link";
 import Container from "./Container";
-import { FaGithub } from "react-icons/fa";
+import { Icons } from "@/components/common/Icons";
 
 export default function Footer() {
   return (
-    <footer className="py-8 bg-gray-100">
+    <footer className="pt-8 bg-gray-100 pb-28 sm:pb-8">
       <Container>
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-center">
             <Link href="/" className="text-2xl font-semibold text-gray-700">Happy Givers</Link>
             <Link href="https://github.com/manlubo/happy_front">
-              <FaGithub className="w-6 h-6 text-gray-600 hover:text-gray-800 transition"/>
+              <Icons.github className="w-6 h-6 text-gray-600 hover:text-gray-800 transition"/>
             </Link>
           </div>
           <div className="flex gap-4 text-gray-600 mt-8 text-sm">

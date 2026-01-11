@@ -5,8 +5,8 @@ import Block from "./Block";
 import { useSelector } from "react-redux";
 import { RootState } from "@/stores";
 import Image from "next/image";
-import { FaCircleUser } from "react-icons/fa6";
 import LogoutButton from "./LogoutButton";
+import { Icons } from "../common/Icons";
 
 
 export default function UserBlock() {
@@ -21,7 +21,7 @@ export default function UserBlock() {
             {user.profile ? (
               <Image src={user.profile} alt="user" width={60} height={60}/>
             ) : (
-              <FaCircleUser size={60} className="text-gray-300"/>
+              <Icons.profile size={60} className="text-gray-300"/>
             )}
           </div>
           <div className="flex justify-between items-center w-full">
