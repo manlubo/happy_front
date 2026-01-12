@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { pretendard } from "@/fonts/font";
 import { Providers } from "./providers";
 import GlobalModal from "@/components/ui/GlobalModal";
+import SideBar from "@/components/layout/SideBar";
 
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body className="flex flex-col min-h-screen overflow-x-hidden">
         <Providers>
           <GlobalModal />
+          <SideBar/>
           {children}
         </Providers>
       </body>

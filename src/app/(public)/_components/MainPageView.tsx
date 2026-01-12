@@ -8,6 +8,10 @@ import Block from "@/components/ui/Block";
 import UserBlock from "@/components/ui/UserBlock";
 import { CategoryBlock } from "./CategoryBlock";
 import ExpireDonateBlock from "./ExpireDonateBlock";
+import NewDonateBlock from "./NewDonateBlock";
+import DonateBlock from "./DonateBlock";
+import NoticeBlock from "./NoticeBlock";
+import FaqBlock from "./FaqBlock";
 
 export default function MainPageView() {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -18,9 +22,13 @@ export default function MainPageView() {
         <MainBanner/>
         <CategoryBlock/>
         <ExpireDonateBlock/>
+        <NewDonateBlock/>
       </div>
       <div className="hidden lg:flex flex-4 flex-col gap-6">
         <UserBlock/>
+        <DonateBlock/>
+        <NoticeBlock/>
+        <FaqBlock/>
         <Block className="rounded-lg p-6">
           <div>API_BASE_URL : {API_BASE_URL}</div>
           <div>user_id : {user?.id}</div>
