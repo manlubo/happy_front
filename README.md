@@ -62,6 +62,7 @@
   - 서버 상태와 클라이언트 상태를 명확히 분리하여 관리함으로써 책임을 명확히 구분
   - `providers.tsx`에서 TanStack Query Provider를 통해 애플리케이션 전역에 Query Client 주입
   - TanStack Query Devtools는 개발 환경에서만 활성화하여 운영 환경에 영향이 없도록 설정
+  - `PrefetchHydration.tsx`를 통해 서버에서 데이터를 미리 클라이언트로 전달해 렌더링 성능 최적화 및 API 중복 요청 방지
 
 - **Redux Toolkit을 통한 클라이언트 상태관리**
 
