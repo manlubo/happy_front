@@ -1,6 +1,7 @@
 // 권한
 export enum UserRole {
   ADMIN = "ADMIN",
+  ORG = "ORG",
   USER = "USER",
 }
 
@@ -26,4 +27,10 @@ export interface LoginRequest {
   username: string;
   password: string;
   rememberMe: boolean;
+}
+
+// 회원가입 인증메일 요청
+export interface SignupMailRequest {
+  email: string;
+  role: UserRole;
 }
