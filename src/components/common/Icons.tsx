@@ -1,4 +1,4 @@
-import { FaAngleRight, FaGithub } from "react-icons/fa";
+import { FaAngleRight, FaCheckCircle, FaGithub } from "react-icons/fa";
 import { FaCircleUser } from "react-icons/fa6";
 import { GoHomeFill } from "react-icons/go";
 import { BiSolidDonateHeart } from "react-icons/bi";
@@ -14,6 +14,7 @@ export const Icons ={
   search: IoSearch,
   feed: MdImage,
   rightArrow: FaAngleRight,
+  check: FaCheckCircle,
 }
 
 export const DonateIcons = {

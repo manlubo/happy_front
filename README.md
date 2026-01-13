@@ -73,6 +73,7 @@
 
 - **Axios를 통한 HTTP 통신 레이어 구성**
 
+  - Axios 공통 에러 타입 및 타입 가드 정의를 통해 API 응답 에러를 일관되게 처리
   - Axios 인스턴스를 통해 HTTP 통신 로직을 분리하고 공통 설정을 중앙에서 관리
   - 인증이 필요한 요청과 공개 API 요청을 분리하여 보안 및 책임을 명확히 함
   - React Query의 `queryFn`, `mutationFn` 내부에서 Axios 인스턴스를 사용해 서버 상태 관리와 HTTP 통신 레이어를 분리

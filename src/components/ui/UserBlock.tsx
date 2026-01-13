@@ -41,7 +41,7 @@ export default function UserBlock() {
         <p className="text-base text-gray-600">당신의 소중한 후원을 기다립니다.</p>
         <Link href="/login" className="py-3 text-center bg-blue-500 text-white text-md font-semibold rounded-md w-full hover:bg-blue-600 transition">로그인</Link>
         <div className="flex gap-4 text-sm text-gray-500 mt-2">
-          <Link href="/" className="hover:underline">회원가입</Link>
+          <Link href="/signup" className="hover:underline">회원가입</Link>
           <Link href="/" className="hover:underline">아이디 찾기</Link>
           <Link href="/" className="hover:underline">비밀번호 찾기</Link>
         </div>
