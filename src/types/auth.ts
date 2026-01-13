@@ -34,3 +34,13 @@ export interface SignupMailRequest {
   email: string;
   role: UserRole;
 }
+
+// 회원가입 요청
+export interface SignupRequest {
+  email: string;
+  password: string;
+  name: string;
+  tel: string;
+  address: string;
+  role: UserRole;
+}

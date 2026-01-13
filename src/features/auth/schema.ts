@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { UserRole, type LoginRequest, type SignupMailRequest } from '@/types/auth'
+import { SignupRequest, UserRole, type LoginRequest, type SignupMailRequest } from '@/types/auth'
 
 // 로그인 요청 스키마
 export const loginRequestSchema = z
@@ -18,3 +18,15 @@ export const signupMailRequestSchema = z
     role: z.enum(UserRole),
   })
   .strict() satisfies z.ZodType<SignupMailRequest>
+
+// 회원가입 요청 스키마
+export const signupRequestSchema = z
+  .object({
+    email: z.string().email(),
+    password: z.string().min(8),
+    name: z.string().min(2),
+    tel: z.string().min(11),
+    address: z.string().min(5),
+    role: z.enum(UserRole),
+  })
+  .strict() satisfies z.ZodType<SignupRequest>
