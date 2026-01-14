@@ -1,8 +1,10 @@
 'use client'
 
+import Button from "@/components/common/Button";
 import { Icons } from "@/components/common/Icons";
+import Input from "@/components/common/Input";
 import Block from "@/components/ui/Block";
-import { signupRequestSchema } from "@/features/auth/schema";
+import { PASSWORD_RULES, signupRequestSchema } from "@/features/auth/schema";
 import { SignupRequest, UserRole } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -17,7 +19,8 @@ export default function SignupPageView({role, email}: SignupPageViewProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { isValid },
+    watch,
   } = useForm<SignupRequest>({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -33,6 +36,8 @@ export default function SignupPageView({role, email}: SignupPageViewProps) {
     },
   })
 
+  const password = watch("password") ?? "";
+
   const handleSignup = (data: SignupRequest) => {
     console.log(data);
   }
@@ -42,17 +47,39 @@ export default function SignupPageView({role, email}: SignupPageViewProps) {
       <h1 className="text-2xl font-bold text-center">회원가입</h1>
       <Block className="rounded-lg p-8 ">
         <form onSubmit={handleSubmit(handleSignup)} className="flex flex-col gap-4">
-          <input type="text" value={email} disabled className="border border-gray-200 rounded-md p-2"/>
-          <input type="password" {...register("password")} className="border border-gray-200 rounded-md p-2"/>
-          <div className={`flex items-center gap-1 ${errors.password ? "text-red-500" : "text-blue-500"}`}>
-            <Icons.check size={16}/>
-            <p className="text-sm font-medium">8자 이상</p>
+          <Input label="이메일" type="text" value={email} disabled />
+          <Input label="비밀번호" type="password" {...register("password")} />
+          <div className="flex gap-2">
+            <div className={`flex items-center gap-1 ${PASSWORD_RULES.min(password) ? "text-blue-500" : "text-red-500"} `}>
+              <Icons.check size={16}/>
+              <p className="text-sm font-medium">8자 이상</p>
+            </div>
+            <div className={`flex items-center gap-1 ${
+              PASSWORD_RULES.english(password) ? "text-blue-500" : "text-red-500"
+            }`}>
+              <Icons.check size={16} />
+              <p className="text-sm font-medium">영문</p>
+            </div>
+            <div className={`flex items-center gap-1 ${
+              PASSWORD_RULES.number(password) ? "text-blue-500" : "text-red-500"
+            }`}>
+              <Icons.check size={16} />
+              <p className="text-sm font-medium">숫자</p>
+            </div>
+            <div className={`flex items-center gap-1 ${
+              PASSWORD_RULES.special(password) ? "text-blue-500" : "text-red-500"
+            }`}>
+              <Icons.check size={16} />
+              <p className="text-sm font-medium">특수문자(!@*.)</p>
+            </div>
           </div>
-          <input type="text" {...register("name")} className="border border-gray-200 rounded-md p-2"/>
-          <input type="text" {...register("tel")} className="border border-gray-200 rounded-md p-2"/>
-          <input type="text" {...register("address")} className="border border-gray-200 rounded-md p-2"/>
-          {role === UserRole.ORG && <input type="text" value={role} disabled className="border border-gray-200 rounded-md p-2"/>}
-          <button type="submit" className="cursor-pointer py-3 text-center bg-blue-500 text-white text-md font-semibold rounded-md w-full hover:bg-blue-600 transition">회원가입</button>
+          <Input label="이름" type="text" {...register("name")}/>
+          <Input label="전화번호" type="text" {...register("tel")}/>
+          <Input label="주소" type="text" {...register("address")} />
+          {role === UserRole.ORG && <Input label="" type="text" value={role} disabled/>}
+          <Button type="submit" buttonColor="blue" buttonStyle="solid" fullWidth={true} disabled={!isValid} className={`cursor-pointer text-md font-semibold`}>
+            회원가입
+          </Button>
         </form>
       </Block>
     </div>

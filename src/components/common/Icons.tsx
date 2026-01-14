@@ -1,5 +1,5 @@
-import { FaAngleRight, FaCheckCircle, FaGithub } from "react-icons/fa";
-import { FaCircleUser } from "react-icons/fa6";
+import { FaAngleRight, FaCheckCircle, FaEye, FaGithub } from "react-icons/fa";
+import { FaCircleUser, FaEyeSlash } from "react-icons/fa6";
 import { GoHomeFill } from "react-icons/go";
 import { BiSolidDonateHeart } from "react-icons/bi";
 import { IoMenu, IoSearch } from "react-icons/io5";
@@ -15,6 +15,8 @@ export const Icons ={
   feed: MdImage,
   rightArrow: FaAngleRight,
   check: FaCheckCircle,
+  eye: FaEye,
+  eyeSlash: FaEyeSlash,
 }
 
 export const DonateIcons = {
