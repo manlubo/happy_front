@@ -1,7 +1,6 @@
 'use client'
 
 import Button from "@/components/common/Button";
-import { Icons } from "@/components/common/Icons";
 import Input from "@/components/common/Input";
 import Radio from "@/components/common/Radio";
 import Block from "@/components/ui/Block";
@@ -61,7 +60,7 @@ export default function SignupMailPageView() {
       control,
       formState: { errors, isValid },
     } = useForm<SignupMailRequest>({
-      mode: 'onChange',
+      mode: 'onSubmit',
       reValidateMode: 'onChange',
       shouldFocusError: false,
       resolver: zodResolver(signupMailRequestSchema),
@@ -93,11 +92,7 @@ export default function SignupMailPageView() {
             ]}
             register={register("role")}
           />
-          <Input label="이메일" type="text" {...register("email")}/>
-          <div className={`flex items-center gap-1 ${errors.email ? "text-red-500" : "text-blue-500"}`}>
-            <Icons.check size={16}/>
-            <p className="text-sm font-medium">이메일</p>
-          </div>
+          <Input label="이메일" type="text" {...register("email")} error={!!errors.email} errorLabel={"올바른 이메일을 입력해주세요."}/>
           <Button type="submit" buttonColor="blue" buttonStyle="solid" fullWidth={true} disabled={!isValid}>
             인증메일 전송
           </Button>

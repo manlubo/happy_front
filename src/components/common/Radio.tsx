@@ -18,7 +18,7 @@ export default function Radio<TValue extends string>({
   register,
 }: RadioProps<TValue>) {
   return (
-    <div className="flex rounded-md border border-gray-200 overflow-hidden">
+    <div className="flex rounded-md border border-gray-300 overflow-hidden">
       {options.map((option) => {
         const checked = value === option.value;
 
@@ -27,11 +27,11 @@ export default function Radio<TValue extends string>({
             key={option.value}
             className={`
               flex-1 py-3 text-center cursor-pointer
-              font-medium transition-colors rounded-md
+              font-medium transition-colors rounded
               ${
                 checked
-                  ? "bg-blue-500 text-white"
-                  : "bg-white text-gray-600 hover:bg-gray-100"
+                  ? "bg-blue-400 text-white"
+                  : "bg-white text-gray-500 hover:bg-gray-100"
               }
             `}
           >

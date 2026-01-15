@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation"
 import { openModal } from "@/stores/uiSlice"
 import Input from "@/components/common/Input"
 import Button from "@/components/common/Button"
+import Checkbox from "@/components/common/CheckBox"
 
 export default function LoginPageView() {
     const dispatch = useDispatch<AppDispatch>();
@@ -76,9 +77,9 @@ export default function LoginPageView() {
       <h1 className="text-2xl font-bold text-center">로그인</h1>
       <Block className="rounded-lg p-8 ">
         <form onSubmit={handleSubmit(handleLogin, onInvalid)} className="flex flex-col gap-4">
-          <Input label="아이디" type="text" {...register("username")}/>
+          <Input label="이메일 또는 휴대전화" type="text" {...register("username")}/>
           <Input label="비밀번호" type="password" {...register("password")}/>
-          <label className="cursor-pointer mb-4"><input type="checkbox" {...register("rememberMe")}/> 로그인유지</label>
+          <Checkbox label="로그인유지" register={register("rememberMe")}/>
           <Button type="submit" buttonColor="blue" buttonStyle="solid" fullWidth={true}>
             로그인
           </Button>
