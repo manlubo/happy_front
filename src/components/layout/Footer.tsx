@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Container from "./Container";
 import { Icons } from "@/components/common/Icons";
+import UnderLineLink from "../common/UnderLineLink";
 
 export default function Footer() {
   return (
@@ -13,11 +14,11 @@ export default function Footer() {
               <Icons.github className="w-6 h-6 text-gray-600 hover:text-gray-800 transition"/>
             </Link>
           </div>
-          <div className="flex gap-4 text-gray-600 mt-8 text-sm">
-            <Link href="/" className="hover:underline transition">이용약관</Link>
-            <Link href="/" className="font-semibold hover:underline transition">개인정보처리방침</Link>
-            <Link href="/" className="hover:underline transition">공지사항</Link>
-            <Link href="/" className="hover:underline transition">자주묻는 질문</Link>
+          <div className="flex gap-4 mt-8 text-sm">
+            <UnderLineLink href="/" className="text-gray-600" label="이용약관"/>
+            <UnderLineLink href="/" className="font-semibold text-gray-600" label="개인정보처리방침"/>
+            <UnderLineLink href="/" className="text-gray-600" label="공지사항"/>
+            <UnderLineLink href="/" className="text-gray-600" label="자주묻는 질문"/>
           </div>
           <p className="text-gray-500 text-sm">© 2026 Happygivers. All rights reserved.</p>
         </div>

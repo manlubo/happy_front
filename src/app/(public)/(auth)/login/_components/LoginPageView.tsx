@@ -12,6 +12,9 @@ import Block from "@/components/ui/Block"
 import { login } from "@/stores/authSlice"
 import { useRouter } from "next/navigation"
 import { openModal } from "@/stores/uiSlice"
+import Input from "@/components/common/Input"
+import Button from "@/components/common/Button"
+import Checkbox from "@/components/common/CheckBox"
 
 export default function LoginPageView() {
     const dispatch = useDispatch<AppDispatch>();
@@ -74,10 +77,12 @@ export default function LoginPageView() {
       <h1 className="text-2xl font-bold text-center">로그인</h1>
       <Block className="rounded-lg p-8 ">
         <form onSubmit={handleSubmit(handleLogin, onInvalid)} className="flex flex-col gap-4">
-          <input type="text" {...register("username")} className="border border-gray-200 rounded-md p-2"/>
-          <input type="password" {...register("password")} className="border border-gray-200 rounded-md p-2"/>
-          <label className="cursor-pointer mb-4"><input type="checkbox" {...register("rememberMe")}/> 로그인유지</label>
-          <button type="submit" className="cursor-pointer py-3 text-center bg-blue-500 text-white text-md font-semibold rounded-md w-full hover:bg-blue-600 transition">로그인</button>
+          <Input label="이메일 또는 휴대전화" type="text" {...register("username")}/>
+          <Input label="비밀번호" type="password" {...register("password")}/>
+          <Checkbox label="로그인유지" register={register("rememberMe")}/>
+          <Button type="submit" buttonColor="blue" buttonStyle="solid" fullWidth={true}>
+            로그인
+          </Button>
         </form>
       </Block>
     </div>

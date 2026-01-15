@@ -4,6 +4,7 @@ import { GoHomeFill } from "react-icons/go";
 import { BiSolidDonateHeart } from "react-icons/bi";
 import { IoMenu, IoSearch } from "react-icons/io5";
 import { MdImage } from "react-icons/md";
+import { RiErrorWarningFill } from "react-icons/ri";
 
 export const Icons ={
   home: GoHomeFill,
@@ -17,6 +18,7 @@ export const Icons ={
   check: FaCheckCircle,
   eye: FaEye,
   eyeSlash: FaEyeSlash,
+  warn: RiErrorWarningFill,
 }
 
 export const DonateIcons = {

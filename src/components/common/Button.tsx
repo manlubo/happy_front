@@ -14,10 +14,10 @@ type ButtonProps = {
   fullWidth?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const BASE_STYLE =
-  "inline-flex items-center justify-center gap-2 rounded-md px-3 py-3 text-md font-semibold transition focus:outline-none";
+export const BUTTON_BASE_STYLE =
+  "inline-flex items-center justify-center gap-2 rounded-md px-3 py-3 text-md font-semibold transition focus:outline-none cursor-pointer";
 
-const STYLE_MAP: Record<ButtonStyle, Record<ButtonColor, string>> = {
+export const BUTTON_STYLE_MAP: Record<ButtonStyle, Record<ButtonColor, string>> = {
   solid: {
     blue: "bg-blue-500 text-white hover:bg-blue-600",
     gray: "bg-gray-600 text-white hover:bg-gray-700",
@@ -87,9 +87,10 @@ export default function Button({
       aria-disabled={isDisabled}
       onClick={handleClick}
       className={`
-        ${BASE_STYLE}
+        mt-4
+        ${BUTTON_BASE_STYLE}
         ${fullWidth ? "w-full" : ""}
-        ${isDisabled ? BUTTON_DISABLED : STYLE_MAP[buttonStyle][buttonColor]}
+        ${isDisabled ? BUTTON_DISABLED : BUTTON_STYLE_MAP[buttonStyle][buttonColor]}
         ${className ?? ""}
       `}
       {...props}
