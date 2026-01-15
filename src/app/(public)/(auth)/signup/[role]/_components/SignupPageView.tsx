@@ -7,7 +7,7 @@ import Block from "@/components/ui/Block";
 import { PASSWORD_RULES, signupRequestSchema } from "@/features/auth/schema";
 import { SignupRequest, UserRole } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 interface SignupPageViewProps {
   role: UserRole;
@@ -18,9 +18,9 @@ export default function SignupPageView({role, email}: SignupPageViewProps) {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { isValid },
-    watch,
   } = useForm<SignupRequest>({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -36,7 +36,10 @@ export default function SignupPageView({role, email}: SignupPageViewProps) {
     },
   })
 
-  const password = watch("password") ?? "";
+  const password = useWatch({
+    control,
+    name: "password",
+  }) ?? "";
 
   const handleSignup = (data: SignupRequest) => {
     console.log(data);

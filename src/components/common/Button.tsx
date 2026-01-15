@@ -15,7 +15,7 @@ type ButtonProps = {
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const BASE_STYLE =
-  "inline-flex items-center justify-center gap-2 rounded-md px-3 py-3 text-md font-semibold transition focus:outline-none";
+  "inline-flex items-center justify-center gap-2 rounded-md px-3 py-3 text-md font-semibold transition focus:outline-none cursor-pointer";
 
 const STYLE_MAP: Record<ButtonStyle, Record<ButtonColor, string>> = {
   solid: {
