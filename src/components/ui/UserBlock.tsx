@@ -8,7 +8,7 @@ import Image from "next/image";
 import LogoutButton from "./LogoutButton";
 import { Icons } from "../common/Icons";
 import LinkButton from "../common/LinkButton";
-import UnderLineLink from "../common/UnderLineLink";
+import AuthLink from "./authLink";
 
 
 export default function UserBlock() {
@@ -40,13 +40,9 @@ export default function UserBlock() {
       </>
       ) : (
         <>
-        <p className="text-base text-gray-600">당신의 소중한 후원을 기다립니다.</p>
-        <LinkButton href="/login" label="로그인"/>
-        <div className="flex gap-4 text-sm mt-2">
-          <UnderLineLink href="/signup" label="회원가입"/>
-          <UnderLineLink label="아이디 찾기"/>
-          <UnderLineLink label="비밀번호 찾기"/>
-        </div>
+          <p className="text-base text-gray-600">당신의 소중한 후원을 기다립니다.</p>
+          <LinkButton href="/login" label="로그인"/>
+          <AuthLink page="login" className="mt-2 gap-4"/>
         </>
       )}
     </Block>

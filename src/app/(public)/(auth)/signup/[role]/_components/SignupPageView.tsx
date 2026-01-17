@@ -1,12 +1,13 @@
 'use client'
 
 import Button from "@/components/common/Button";
-import { Icons } from "@/components/common/Icons";
 import Input from "@/components/common/Input";
 import Block from "@/components/ui/Block";
-import { PASSWORD_RULES, signupRequestSchema } from "@/features/auth/schema";
+import { signupRequestSchema } from "@/features/auth/schema";
+import { openDaumPostcode } from "@/lib/daumPostcode";
 import { SignupRequest, UserRole } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
 interface SignupPageViewProps {
@@ -15,12 +16,16 @@ interface SignupPageViewProps {
 }
 
 export default function SignupPageView({role, email}: SignupPageViewProps) {
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [mainAddress, setMainAddress] = useState('');
+  const [detailAddress, setDetailAddress] = useState('');
 
   const {
     register,
-    control,
     handleSubmit,
-    formState: { isValid },
+    control,
+    setValue,
+    formState: { isValid, errors },
   } = useForm<SignupRequest>({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -36,12 +41,20 @@ export default function SignupPageView({role, email}: SignupPageViewProps) {
     },
   })
 
+  const handleSearchAddress = () => {
+    openDaumPostcode((data) => {
+      setMainAddress(data.roadAddress || data.jibunAddress);
+      setValue("address", mainAddress + detailAddress);
+    });
+  }
+
   const password = useWatch({
     control,
     name: "password",
-  }) ?? "";
+  });
 
   const handleSignup = (data: SignupRequest) => {
+    setValue("address", mainAddress + detailAddress);
     console.log(data);
   }
 
@@ -50,37 +63,17 @@ export default function SignupPageView({role, email}: SignupPageViewProps) {
       <h1 className="text-2xl font-bold text-center">회원가입</h1>
       <Block className="rounded-lg p-8 ">
         <form onSubmit={handleSubmit(handleSignup)} className="flex flex-col gap-4">
-          <Input label="이메일" type="text" value={email} disabled />
-          <Input label="비밀번호" type="password" {...register("password")} />
-          <div className="flex gap-2">
-            <div className={`flex items-center gap-1 ${PASSWORD_RULES.min(password) ? "text-blue-500" : "text-red-500"} `}>
-              <Icons.check size={16}/>
-              <p className="text-sm font-medium">8자 이상</p>
-            </div>
-            <div className={`flex items-center gap-1 ${
-              PASSWORD_RULES.english(password) ? "text-blue-500" : "text-red-500"
-            }`}>
-              <Icons.check size={16} />
-              <p className="text-sm font-medium">영문</p>
-            </div>
-            <div className={`flex items-center gap-1 ${
-              PASSWORD_RULES.number(password) ? "text-blue-500" : "text-red-500"
-            }`}>
-              <Icons.check size={16} />
-              <p className="text-sm font-medium">숫자</p>
-            </div>
-            <div className={`flex items-center gap-1 ${
-              PASSWORD_RULES.special(password) ? "text-blue-500" : "text-red-500"
-            }`}>
-              <Icons.check size={16} />
-              <p className="text-sm font-medium">특수문자(!@*.)</p>
-            </div>
-          </div>
-          <Input label="이름" type="text" {...register("name")}/>
-          <Input label="전화번호" type="text" {...register("tel")}/>
-          <Input label="주소" type="text" {...register("address")} />
-          {role === UserRole.ORG && <Input label="" type="text" value={role} disabled/>}
-          <Button type="submit" buttonColor="blue" buttonStyle="solid" fullWidth={true} disabled={!isValid} className={`cursor-pointer text-md font-semibold`}>
+          <Input label="이메일" type="text" value={email} disabled readOnly/>
+          <Input label="비밀번호" type="password" {...register("password")} error={!!errors.password} errorLabel={"비밀번호는 8자 이상, 영문, 숫자, 특수문자(!@*.)를 포함해야 합니다."}/>
+          <Input label="비밀번호 확인" type="password" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} error={password !== passwordConfirm} errorLabel={"비밀번호가 일치하지 않습니다." }/>
+          <Input label={role === UserRole.ORG ? "기관명" : "이름"} type="text" {...register("name")}/>
+          <Input label="전화번호" type="text" {...register("tel")} error={!!errors.tel} errorLabel={"올바른 전화번호를 입력해주세요."}/>
+          <Input label="주소" type="text" value={mainAddress} rightSlot={<Button className="text-xs rounded-sm" onClick={handleSearchAddress}>주소검색</Button>} disabled/>
+          <Input label="상세주소" type="text" value={detailAddress} onChange={(e) => {
+            setDetailAddress(e.target.value);
+            setValue("address", mainAddress + detailAddress);
+          }} error={detailAddress.length < 1} errorLabel={"상세주소를 입력해주세요."}/>
+          <Button type="submit" buttonColor="blue" buttonStyle="solid" fullWidth={true} disabled={!isValid || mainAddress.length < 1 || detailAddress.length < 1} className={`mt-4`}>
             회원가입
           </Button>
         </form>

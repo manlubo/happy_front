@@ -1,6 +1,4 @@
-'use client'
-
-import { ButtonHTMLAttributes, useEffect, useState } from "react";
+import { ButtonHTMLAttributes } from "react";
 import { BUTTON_DISABLED } from "./disabled";
 
 type ButtonStyle = "solid" | "outline";
@@ -9,8 +7,6 @@ type ButtonColor = "blue" | "gray";
 type ButtonProps = {
   buttonStyle?: ButtonStyle;
   buttonColor?: ButtonColor;
-  cooldown?: number;        // 초 단위
-  autoCooldown?: boolean;  // 클릭 후 자동 쿨타임
   fullWidth?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -31,63 +27,22 @@ export const BUTTON_STYLE_MAP: Record<ButtonStyle, Record<ButtonColor, string>> 
 export default function Button({
   buttonStyle = "solid",
   buttonColor = "blue",
-  cooldown,
-  autoCooldown = false,
   disabled,
   fullWidth = false,
   className,
-  onClick,
   children,
   type = "button",
   ...props
 }: ButtonProps) {
-  const [remain, setRemain] = useState<number | null>(null);
 
-  // 쿨다운 타이머
-  useEffect(() => {
-    if (remain === null) return;
-
-    const timer = setInterval(() => {
-      setRemain((prev) => {
-        if (prev === null || prev <= 1) {
-          clearInterval(timer);
-          return null;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [remain]);
-
-  const handleClick = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    if (disabled || remain !== null) return;
-
-    const result = onClick?.(e);
-
-    if (autoCooldown && cooldown) {
-      try {
-        await Promise.resolve(result);
-        setRemain(cooldown);
-      } catch {
-        // 실패 시 쿨타임 시작 안 함
-      }
-    }
-  };
-
-  const isCooldown = remain !== null;
-  const isDisabled = disabled || isCooldown;
+  const isDisabled = disabled;
 
   return (
     <button
       type={type}
       disabled={isDisabled}
       aria-disabled={isDisabled}
-      onClick={handleClick}
       className={`
-        mt-4
         ${BUTTON_BASE_STYLE}
         ${fullWidth ? "w-full" : ""}
         ${isDisabled ? BUTTON_DISABLED : BUTTON_STYLE_MAP[buttonStyle][buttonColor]}
@@ -95,9 +50,7 @@ export default function Button({
       `}
       {...props}
     >
-      {isCooldown
-        ? `${Math.floor(remain! / 60)}:${String(remain! % 60).padStart(2, "0")}`
-        : children}
+      {children}
     </button>
   );
 }
