@@ -44,3 +44,14 @@ export interface SignupRequest {
   address: string;
   role: UserRole;
 }
+
+// 전화번호 인증번호 요청
+export interface SendTelRequest {
+  tel: string;
+}
+
+// 전화번호 인증번호 확인
+export interface SendTelCheckRequest {
+  tel: string;
+  code: string;
+}

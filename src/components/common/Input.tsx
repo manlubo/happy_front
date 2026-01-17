@@ -53,7 +53,7 @@ export default function Input({label, type="text", className, rightSlot, disable
         {label}
       </label>
       {error && errorLabel && (
-        <div className="absolute left-2 bottom-[-24px] flex items-center gap-1">
+        <div className="absolute left-0 bottom-[-24px] flex items-center gap-1">
           <Icons.warn size={16} className="text-red-400"/>
           <span className="text-red-400 font-medium text-xs">{errorLabel}</span>
         </div>
@@ -62,7 +62,7 @@ export default function Input({label, type="text", className, rightSlot, disable
       {rightSlot && (
         <div
           className={`
-            absolute right-3 top-1/2 -translate-y-1/2
+            absolute right-1 top-1/2 -translate-y-1/2
             flex items-center
           `}
         >

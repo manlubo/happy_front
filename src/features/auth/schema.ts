@@ -20,34 +20,13 @@ export const signupMailRequestSchema = z
   .strict() satisfies z.ZodType<SignupMailRequest>
 
 
-// 비밀번호 규칙
-export const PASSWORD_RULES = {
-  min: (v: string) => v.length >= 8,
-  english: (v: string) => /[a-zA-Z]/.test(v),
-  number: (v: string) => /[0-9]/.test(v),
-  special: (v: string) => /[!@*.]/.test(v),
-};
-
-// 비밀번호 검증 커스텀 리파인
-const validatePassword = (password: string, ctx: z.RefinementCtx) => {
-  for (const rule of Object.values(PASSWORD_RULES)) {
-    if (!rule(password)) {
-      ctx.addIssue({
-        code: "custom",
-      });
-      break;
-    }
-  }
-}
-
 // 회원가입 요청 스키마
 export const signupRequestSchema = z
   .object({
     email: z.string().email(),
-    password: z.string()
-      .superRefine(validatePassword),
+    password: z.string().min(8).refine((v) => /[a-zA-Z]/.test(v)).refine((v) => /[0-9]/.test(v)).refine((v) => /[!@*.]/.test(v)),
     name: z.string().min(2),
-    tel: z.string().min(11),
+    tel: z.string().refine((v) => /^01([0|1|6|7|8|9])\d{7,8}$/.test(v)),
     address: z.string().min(5),
     role: z.enum(UserRole),
   })
