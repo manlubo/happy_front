@@ -120,14 +120,14 @@ export default function SignupPageView({role, email, token}: SignupPageViewProps
 
   const verifyTelMutation = useMutation({
     mutationFn: verifyTelApi,
-    onSuccess: (data) => {
-      if (!!data.data?.email){
+    onSuccess: (resp) => {
+      if (!!resp.data?.email){
         dispatch(
           openModal({
             modalType: "link",
             modalProps: {
               title: "이미 가입된 번호입니다.",
-              message: `${data.data.email}이 본인의 계정이라면\n해당 계정을 이용해 주세요.`,
+              message: `${resp.data.email}이 본인의 계정이라면\n해당 계정을 이용해 주세요.`,
               link: "/login",
               linkText: "기존 계정으로 로그인",
               cancelText: "새 계정으로 가입하기",
@@ -177,6 +177,18 @@ export default function SignupPageView({role, email, token}: SignupPageViewProps
   }
 
   const handleVerifyTel = async () => {
+    if(!/^[0-9]{6}$/.test(code)){
+      dispatch(
+        openModal({
+          modalType: "alert",
+          modalProps: {
+            title: "인증번호 검증 실패",
+            message: "인증번호가 일치하지 않습니다.",
+          },
+        })
+      );
+      return;
+    }
     verifyTelMutation.mutate({code, tel});
   }
 
@@ -193,7 +205,7 @@ export default function SignupPageView({role, email, token}: SignupPageViewProps
           <Input label="비밀번호" type="password" {...register("password")} error={!!errors.password} errorLabel={"비밀번호는 8자 이상, 영문, 숫자, 특수문자(!@*.)를 포함해야 합니다."}/>
           <Input label="비밀번호 확인" type="password" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} error={password !== passwordConfirm} errorLabel={"비밀번호가 일치하지 않습니다." }/>
           <Input label={role === UserRole.ORG ? "기관명" : "이름"} type="text" {...register("name")}/>
-          <Input label="전화번호" type="text" {...register("tel")} error={!!errors.tel} errorLabel={"올바른 전화번호를 입력해주세요."} disabled={isPhoneVerified || isCooldown}
+          <Input label="전화번호" type="text" {...register("tel")} error={!!errors.tel} maxLength={11} errorLabel={"올바른 전화번호를 입력해주세요."} disabled={isPhoneVerified || isCooldown}
           rightSlot={<Button className="text-xs rounded-sm w-[68px]" disabled={isPhoneVerified || !!errors.tel || tel.length < 10 || isCooldown} onClick={handleSendTel}>{isPhoneVerified ? "인증완료" : isCooldown ? `${time}` : "인증번호"}</Button>}/>
           {!isPhoneVerified && isCooldown &&<Input label="인증번호" type="text" maxLength={6} value={code} onChange={(e) => setCode(e.target.value)} rightSlot={<Button className="text-xs rounded-sm w-[68px]" disabled={code.length < 6} onClick={handleVerifyTel}>인증받기</Button>}/>}
           <Input label="주소" type="text" value={mainAddress} rightSlot={<Button className="text-xs rounded-sm w-[68px]" onClick={handleSearchAddress}>주소검색</Button>} disabled readOnly/>
