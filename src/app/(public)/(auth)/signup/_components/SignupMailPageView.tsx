@@ -34,17 +34,31 @@ export default function SignupMailPageView() {
       }));
     },
     onError: (error) => {
-      stopCooldown();
       if(isApiAxiosError(error)) {
-        dispatch(
-          openModal({
-            modalType: "alert",
-            modalProps: {
-              title: "인증메일 전송 실패",
-              message: error.response?.data.message || "인증메일 전송에 실패했습니다.",
-            },
-          })
-        );
+        console.log(error.response?.data.code);
+        if(error.response?.data.code === "THROTTLE_ERROR"){
+          dispatch(
+            openModal({
+              modalType: "alert",
+              modalProps: {
+                title: "인증메일 전송 실패",
+                message: "잠시후 다시 시도해주세요.",
+              },
+            })
+          );
+        }
+        else{
+          stopCooldown();
+          dispatch(
+            openModal({
+              modalType: "alert",
+              modalProps: {
+                title: "인증메일 전송 실패",
+                message: error.response?.data.message || "인증메일 전송에 실패했습니다.",
+              },
+            })
+          );
+        }
       } else {
         stopCooldown();
         dispatch(
@@ -52,7 +66,7 @@ export default function SignupMailPageView() {
             modalType: "alert",
             modalProps: {
               title: "인증메일 전송 실패",
-              message: "서버에러입니다. 잠시후 다시 시도해주세요.",
+              message: "잠시후 다시 시도해주세요.",
             },
           })
         );

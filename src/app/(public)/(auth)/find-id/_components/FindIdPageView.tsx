@@ -51,7 +51,7 @@ export default function FindIdPageView() {
             modalType: "alert",
             modalProps: {
               title: "인증번호 전송 실패",
-              message: "서버에러입니다. 잠시후 다시 시도해주세요.",
+              message: "잠시후 다시 시도해주세요.",
             },
           })
       );
