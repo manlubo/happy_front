@@ -20,7 +20,7 @@ import { useCooldown } from "@/features/common/hooks/useCooldown";
 export default function SignupMailPageView() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { time, isCooldown, startCooldown, stopCooldown } = useCooldown(180);
+  const { time, isCooldown, startCooldown, stopCooldown } = useCooldown(60);
   
   const signupMailMutation = useMutation({
     mutationFn: signupMailApi,

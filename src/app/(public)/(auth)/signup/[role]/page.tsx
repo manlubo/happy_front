@@ -35,5 +35,5 @@ export default async function SignupPage({params, searchParams}: SignupPageProps
   if(!parsedRole.success) notFound();
 
   
-  return <SignupPageView role={parsedRole.data} email={data.data.email}/>;
+  return <SignupPageView role={parsedRole.data} email={data.data.email} token={token}/>;
 }

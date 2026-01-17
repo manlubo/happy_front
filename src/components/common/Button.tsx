@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 import { BUTTON_DISABLED } from "./disabled";
 
 type ButtonStyle = "solid" | "outline";
-type ButtonColor = "blue" | "gray";
+type ButtonColor = "blue" | "gray" | "lightGray";
 
 type ButtonProps = {
   buttonStyle?: ButtonStyle;
@@ -17,10 +17,12 @@ export const BUTTON_STYLE_MAP: Record<ButtonStyle, Record<ButtonColor, string>> 
   solid: {
     blue: "bg-blue-500 text-white hover:bg-blue-600",
     gray: "bg-gray-600 text-white hover:bg-gray-700",
+    lightGray: "bg-gray-200 text-gray-600 hover:bg-gray-300",
   },
   outline: {
     blue: "border border-blue-500 text-blue-500 hover:bg-blue-50",
     gray: "border border-gray-300 text-gray-600 hover:bg-gray-100",
+    lightGray: "border border-gray-200 text-gray-600 hover:bg-gray-100",
   },
 };
 

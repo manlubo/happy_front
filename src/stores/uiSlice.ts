@@ -11,6 +11,8 @@ export type LinkModalProps = {
   title?: string;
   message: string;
   link: string;
+  linkText?: string;
+  cancelText?: string;
 };
 
 export type ModalPayload = 
