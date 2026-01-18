@@ -12,10 +12,11 @@ import Block from "@/components/ui/Block"
 import { login } from "@/stores/authSlice"
 import { useRouter } from "next/navigation"
 import { openModal } from "@/stores/uiSlice"
-import Input from "@/components/common/Input"
 import Button from "@/components/common/Button"
 import Checkbox from "@/components/common/CheckBox"
 import AuthLink from "@/components/ui/authLink"
+import PasswordInput from "@/components/common/PasswordInput"
+import Input from "@/components/common/Input"
 
 export default function LoginPageView() {
     const dispatch = useDispatch<AppDispatch>();
@@ -79,7 +80,7 @@ export default function LoginPageView() {
       <Block className="rounded-lg p-8 ">
         <form onSubmit={handleSubmit(handleLogin, onInvalid)} className="flex flex-col gap-4">
           <Input label="이메일 또는 휴대전화" type="text" {...register("username")}/>
-          <Input label="비밀번호" type="password" {...register("password")}/>
+          <PasswordInput label="비밀번호" {...register("password")}/>
           <Checkbox label="로그인유지" register={register("rememberMe")}/>
           <Button type="submit" buttonColor="blue" buttonStyle="solid" fullWidth={true} className="mt-4">
             로그인

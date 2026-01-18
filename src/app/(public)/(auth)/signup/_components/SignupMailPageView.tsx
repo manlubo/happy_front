@@ -1,7 +1,6 @@
 'use client'
 
 import Button from "@/components/common/Button";
-import Input from "@/components/common/Input";
 import Radio from "@/components/common/Radio";
 import AuthLink from "@/components/ui/authLink";
 import Block from "@/components/ui/Block";
@@ -16,6 +15,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm, useWatch } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useCooldown } from "@/features/common/hooks/useCooldown";
+import Input from "@/components/common/Input";
 
 export default function SignupMailPageView() {
   const dispatch = useDispatch<AppDispatch>();

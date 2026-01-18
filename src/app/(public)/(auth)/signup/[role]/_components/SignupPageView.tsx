@@ -2,6 +2,7 @@
 
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
+import PasswordInput from "@/components/common/PasswordInput";
 import Block from "@/components/ui/Block";
 import { sendTelApi, signupApi, verifyTelApi } from "@/features/auth/api";
 import { signupRequestSchema } from "@/features/auth/schema";
@@ -202,8 +203,8 @@ export default function SignupPageView({role, email, token}: SignupPageViewProps
       <Block className="rounded-lg p-8 ">
         <form onSubmit={handleSubmit(handleSignup)} className="flex flex-col gap-4">
           <Input label="이메일" type="text" value={email} disabled readOnly/>
-          <Input label="비밀번호" type="password" {...register("password")} error={!!errors.password} errorLabel={"비밀번호는 8자 이상, 영문, 숫자, 특수문자(!@*.)를 포함해야 합니다."}/>
-          <Input label="비밀번호 확인" type="password" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} error={password !== passwordConfirm} errorLabel={"비밀번호가 일치하지 않습니다." }/>
+          <PasswordInput label="비밀번호" {...register("password")} error={!!errors.password} errorLabel={"비밀번호는 8자 이상, 영문, 숫자, 특수문자(!@*.)를 포함해야 합니다."}/>
+          <PasswordInput label="비밀번호 확인" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} error={password !== passwordConfirm} errorLabel={"비밀번호가 일치하지 않습니다." }/>
           <Input label={role === UserRole.ORG ? "기관명" : "이름"} type="text" {...register("name")}/>
           <Input label="전화번호" type="text" {...register("tel")} error={!!errors.tel} maxLength={11} errorLabel={"올바른 전화번호를 입력해주세요."} disabled={isPhoneVerified || isCooldown}
           rightSlot={<Button className="text-xs rounded-sm w-[68px]" disabled={isPhoneVerified || !!errors.tel || tel.length < 10 || isCooldown} onClick={handleSendTel}>{isPhoneVerified ? "인증완료" : isCooldown ? `${time}` : "인증번호"}</Button>}/>

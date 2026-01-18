@@ -1,6 +1,4 @@
-'use client'
-
-import { InputHTMLAttributes, ReactNode, useState } from "react";
+import { InputHTMLAttributes, ReactNode } from "react";
 import { Icons } from "./Icons";
 import { INPUT_DISABLED } from "./disabled";
 
@@ -12,9 +10,6 @@ type InputProps = {
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export default function Input({label, type="text", className, rightSlot, disabled, error = false, errorLabel = null, ...props}: InputProps) {
-  const isPassword = type === "password";
-  const [showPassword, setShowPassword] = useState(false);
-
   const inputBase =
     "peer w-full rounded-md bg-transparent border px-4 py-3 text-base focus:outline-none";
 
@@ -25,13 +20,12 @@ export default function Input({label, type="text", className, rightSlot, disable
   return (
     <div className={`relative w-full ${error && "mb-4"}`}>
       <input
-        type={isPassword ? (showPassword ? "text" : "password") : type}
+        type={type}
         placeholder=" "
         className={`
           ${inputBase}
           ${inputState}
           ${error ? "border-red-400 focus:border-red-400" : ""}
-          ${isPassword ? "pr-11" : "pr-4"}
           ${className ?? ""}
         `}
         {...props}
@@ -68,22 +62,6 @@ export default function Input({label, type="text", className, rightSlot, disable
         >
           {rightSlot}
         </div>
-      )}
-
-      {isPassword && (
-        <button
-          type="button"
-          onClick={() => setShowPassword((prev) => !prev)}
-          className="
-            absolute right-6 top-1/2 -translate-y-1/2
-            text-gray-400 hover:text-gray-500 cursor-pointer
-          "        >
-          {showPassword ? (
-            <Icons.eyeSlash size={18} />
-          ) : (
-            <Icons.eye size={18} />
-          )}
-        </button>
       )}
     </div>
   )

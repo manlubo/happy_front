@@ -1,7 +1,6 @@
 'use client'
 
 import Button from "@/components/common/Button";
-import Input from "@/components/common/Input";
 import AuthLink from "@/components/ui/authLink";
 import Block from "@/components/ui/Block";
 import { sendTelApi, verifyTelApi } from "@/features/auth/api";
@@ -16,6 +15,7 @@ import { useCooldown } from "@/features/common/hooks/useCooldown";
 import { SendTelCheckRequest } from "@/types/auth";
 import { useState } from "react";
 import LinkButton from "@/components/common/LinkButton";
+import Input from "@/components/common/Input";
 
 export default function FindIdPageView() {
   const dispatch = useDispatch<AppDispatch>();
